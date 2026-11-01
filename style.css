@@ -187,8 +187,9 @@ img { max-width: 100%; height: auto; }
   color: var(--groen-licht);
   border: 1px solid rgba(35, 177, 77, 0.4);
   border-radius: 999px;
-  padding: 4px 14px;
-  font-size: 0.9rem;
+  padding: 6px 16px;
+  font-size: 1rem;
+  font-weight: 600;
   margin-bottom: 16px;
 }
 
@@ -198,6 +199,50 @@ img { max-width: 100%; height: auto; }
   gap: 40px;
   align-items: start;
 }
+
+.knop.groot { font-size: 1.1rem; padding: 14px 26px; }
+
+.klein { font-size: 0.9rem; margin-top: 12px; }
+
+/* Stappen alfa - beta - verkoop */
+
+.stappen {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.stappen li {
+  background: var(--bg-kaart);
+  border: 1px solid var(--rand);
+  border-top: 4px solid var(--rand);
+  border-radius: 12px;
+  padding: 20px 24px;
+}
+
+.stappen li p:last-child { margin-bottom: 0; }
+
+.stappen .stap-status {
+  display: inline-block;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--tekst-zacht);
+  margin-bottom: 8px;
+}
+
+.stappen li.klaar { border-top-color: var(--groen); }
+.stappen li.klaar .stap-status { color: var(--groen-licht); }
+
+.stappen li.nu {
+  border-color: var(--groen);
+  border-top-color: var(--groen-licht);
+  box-shadow: 0 0 0 1px var(--groen) inset;
+}
+.stappen li.nu .stap-status { color: var(--groen-licht); font-weight: 600; }
 
 /* Formulier */
 
@@ -289,6 +334,7 @@ img { max-width: 100%; height: auto; }
   .held { padding: 48px 0 40px; }
   .held .binnen { grid-template-columns: 1fr; }
   .twee { grid-template-columns: 1fr; }
-  .held .beeld { order: -1; width: 160px; justify-self: start; }
+  .stappen { grid-template-columns: 1fr; }
+  .held .beeld { order: -1; width: 88px; justify-self: start; }
   .kop .binnen { flex-wrap: wrap; padding-top: 12px; padding-bottom: 12px; }
 }
