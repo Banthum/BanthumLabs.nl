@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Veelgestelde vragen over de BMSmachine - thuisbatterij slim aansturen</title>
+  <meta name="description" content="Werkt de BMSmachine met mijn Marstek thuisbatterij? Heb ik Home Assistant of een dynamisch contract nodig? Antwoorden op veelgestelde vragen.">
+  <link rel="canonical" href="https://banthumlabs.nl/faq.html">
+  <link rel="icon" href="img/logo.png" type="image/png">
+  <link rel="stylesheet" href="style.css">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="nl_NL">
+  <meta property="og:site_name" content="Banthum Labs">
+  <meta property="og:title" content="Veelgestelde vragen over de BMSmachine">
+  <meta property="og:description" content="Werkt het met mijn thuisbatterij? Heb ik Home Assistant nodig? Antwoorden op de meest gestelde vragen.">
+  <meta property="og:url" content="https://banthumlabs.nl/faq.html">
+  <meta property="og:image" content="https://banthumlabs.nl/img/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "Met welke thuisbatterij werkt de BMSmachine?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Op dit moment met de Marstek Venus E 3.0. Andere batterijen volgen later; elk merk wordt eerst met een echt exemplaar getest." } },
+      { "@type": "Question", "name": "Heb ik Home Assistant of een server nodig?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Nee. De BMSmachine werkt helemaal zelfstandig. Je hebt geen Home Assistant, Raspberry Pi of andere server nodig." } },
+      { "@type": "Question", "name": "Welke meter heb ik nodig?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Een HomeWizard P1-meter op je slimme meter. Daarmee ziet de BMSmachine live wat er het net in en uit gaat." } },
+      { "@type": "Question", "name": "Heb ik een dynamisch energiecontract nodig?",
+        "acceptedAnswer": { "@type": "Answer", "text": "De BMSmachine haalt zijn voordeel uit wisselende prijzen per kwartier of per uur. Met een vast tarief valt er weinig te winnen; een dynamisch contract is dus sterk aan te raden." } },
+      { "@type": "Question", "name": "Heb ik zonnepanelen nodig?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Nee. Met zonnepanelen houdt de BMSmachine rekening met de zonverwachting. Zonder panelen stuurt hij de batterij puur op de stroomprijzen." } },
+      { "@type": "Question", "name": "Werkt de BMSmachine zonder internet?",
+        "acceptedAnswer": { "@type": "Answer", "text": "De aansturing draait lokaal in het kastje. Voor de stroomprijzen, de zonverwachting en updates haalt hij wel gegevens op via internet; er gaat daarbij niets over jou of je verbruik mee." } },
+      { "@type": "Question", "name": "Worden mijn gegevens verzameld?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Nee. Je verbruiksgegevens blijven in het kastje in je eigen huis. Er is geen cloud, geen account en geen telemetrie." } },
+      { "@type": "Question", "name": "Wat levert het op?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Dat hangt af van je verbruik, je zonnepanelen en hoe sterk de prijzen schommelen. De BMSmachine meet zijn besparing eerlijk: tegen dezelfde batterij op de gewone automatische stand. Zo zie je wat de slimme sturing echt extra oplevert." } },
+      { "@type": "Question", "name": "Wat verandert er als de saldering stopt?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Vanaf 1 januari 2027 stopt de salderingsregeling. Stroom die je teruglevert is dan minder waard, en het loont meer om zonnestroom zelf op te slaan en op dure momenten te gebruiken. De BMSmachine rekent nu al zonder saldering." } },
+      { "@type": "Question", "name": "Wanneer is de BMSmachine te koop?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Nog niet. De alfatest is afgerond en de beta-test komt eraan. Meld je aan voor de beta-test om op de hoogte te blijven." } }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+<header class="kop">
+  <div class="binnen">
+    <a class="merk" href="index.html"><img src="img/logo.png" alt="">Banthum Labs</a>
+    <nav class="menu">
+      <a href="index.html">Home</a>
+      <a href="bmsmachine.html">BMSmachine</a>
+      <a href="faq.html" aria-current="page">Vragen</a>
+      <a href="beta.html">Beta-test</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="held">
+    <div class="binnen tekst" style="display:block">
+      <h1>Veelgestelde vragen</h1>
+      <p class="groot">Over de BMSmachine, je thuisbatterij en wat je nodig hebt. Staat je vraag er niet bij? Mail naar <a href="mailto:info@banthumlabs.nl">info@banthumlabs.nl</a>.</p>
+    </div>
+  </section>
+
+  <section class="sectie">
+    <div class="binnen tekst vragen">
+
+      <details open>
+        <summary>Met welke thuisbatterij werkt de BMSmachine?</summary>
+        <p>Op dit moment met de Marstek Venus E 3.0. Andere batterijen volgen later; elk merk wordt eerst met een echt exemplaar getest.</p>
+      </details>
+
+      <details>
+        <summary>Heb ik Home Assistant of een server nodig?</summary>
+        <p>Nee. De BMSmachine werkt helemaal zelfstandig. Je hebt geen Home Assistant, Raspberry Pi of andere server nodig.</p>
+      </details>
+
+      <details>
+        <summary>Welke meter heb ik nodig?</summary>
+        <p>Een HomeWizard P1-meter op je slimme meter. Daarmee ziet de BMSmachine live wat er het net in en uit gaat.</p>
+      </details>
+
+      <details>
+        <summary>Heb ik een dynamisch energiecontract nodig?</summary>
+        <p>De BMSmachine haalt zijn voordeel uit wisselende prijzen per kwartier of per uur. Met een vast tarief valt er weinig te winnen; een dynamisch contract is dus sterk aan te raden.</p>
+      </details>
+
+      <details>
+        <summary>Heb ik zonnepanelen nodig?</summary>
+        <p>Nee. Met zonnepanelen houdt de BMSmachine rekening met de zonverwachting. Zonder panelen stuurt hij de batterij puur op de stroomprijzen.</p>
+      </details>
+
+      <details>
+        <summary>Werkt de BMSmachine zonder internet?</summary>
+        <p>De aansturing draait lokaal in het kastje. Voor de stroomprijzen, de zonverwachting en updates haalt hij wel gegevens op via internet; er gaat daarbij niets over jou of je verbruik mee.</p>
+      </details>
+
+      <details>
+        <summary>Worden mijn gegevens verzameld?</summary>
+        <p>Nee. Je verbruiksgegevens blijven in het kastje in je eigen huis. Er is geen cloud, geen account en geen telemetrie. Zie ook <a href="privacy.html">privacy</a>.</p>
+      </details>
+
+      <details>
+        <summary>Wat levert het op?</summary>
+        <p>Dat hangt af van je verbruik, je zonnepanelen en hoe sterk de prijzen schommelen. De BMSmachine meet zijn besparing eerlijk: tegen dezelfde batterij op de gewone automatische stand. Zo zie je wat de slimme sturing echt extra oplevert.</p>
+      </details>
+
+      <details>
+        <summary>Wat verandert er als de saldering stopt?</summary>
+        <p>Vanaf 1 januari 2027 stopt de salderingsregeling. Stroom die je teruglevert is dan minder waard, en het loont meer om zonnestroom zelf op te slaan en op dure momenten te gebruiken. De BMSmachine rekent nu al zonder saldering.</p>
+      </details>
+
+      <details>
+        <summary>Wanneer is de BMSmachine te koop?</summary>
+        <p>Nog niet. De alfatest is afgerond en de beta-test komt eraan. <a href="beta.html">Meld je aan voor de beta-test</a> om op de hoogte te blijven.</p>
+      </details>
+
+    </div>
+  </section>
+</main>
+
+<footer class="voet">
+  <div class="binnen">
+    <span>&copy; 2026 Banthum Labs &middot; <a href="mailto:info@banthumlabs.nl">info@banthumlabs.nl</a></span>
+    <span><a href="faq.html" aria-current="page">Vragen</a> &middot; <a href="privacy.html">Privacy</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
