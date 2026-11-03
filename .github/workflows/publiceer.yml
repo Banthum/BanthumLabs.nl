@@ -1,0 +1,106 @@
+# Publiceert de site op GitHub Pages, met data/zon.json (gemeten zon van het KNMI).
+#
+# - Gepland (elke 10 min, op minuut 4, 14, ...): alleen publiceren als er nieuwe
+#   KNMI-data is. Bij een KNMI-fout wordt niets gepubliceerd; de vorige versie blijft.
+# - Push naar main: de site gaat altijd online. Faalt het KNMI, dan gaat het huidige
+#   zon.json opnieuw mee.
+# - Handmatig: publiceert ook als er geen nieuwe KNMI-data is; faalt bij een KNMI-fout.
+#
+# Pages-bron moet op "GitHub Actions" staan (Settings > Pages). Sleutel: secret KNMI_API_KEY.
+
+name: Publiceer site
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "4-59/10 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  bouwen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    outputs:
+      publiceren: ${{ steps.zon.outputs.publiceren }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.13"
+          cache: pip
+          cache-dependency-path: tools/requirements.txt
+
+      - name: Pakketten installeren
+        run: pip install --disable-pip-version-check -r tools/requirements.txt
+
+      - name: Site in _site zetten
+        run: |
+          mkdir -p _site/data
+          rsync -a \
+            --exclude '.git' --exclude '.github' --exclude 'tools' \
+            --exclude '.gitignore' --exclude '_site' \
+            ./ _site/
+
+      - name: Zondata van het KNMI
+        id: zon
+        env:
+          KNMI_API_KEY: ${{ secrets.KNMI_API_KEY }}
+          GEBEURTENIS: ${{ github.event_name }}
+          VORIGE: https://banthumlabs.nl/data/zon.json
+        run: |
+          set +e
+          python tools/knmi_zon.py _site/data/zon.json --vorige "$VORIGE"
+          code=$?
+          set -e
+          if [ "$code" = 0 ]; then
+            echo "publiceren=true" >> "$GITHUB_OUTPUT"
+          elif [ "$code" = 3 ]; then
+            # Geen nieuwe data: gepland niets doen, anders gewoon publiceren.
+            if [ "$GEBEURTENIS" = schedule ]; then
+              echo "publiceren=false" >> "$GITHUB_OUTPUT"
+            else
+              echo "publiceren=true" >> "$GITHUB_OUTPUT"
+            fi
+          elif [ "$GEBEURTENIS" = push ]; then
+            echo "::warning::KNMI-zondata mislukt; site wordt gepubliceerd met het vorige zon.json"
+            rm -f _site/data/zon.json
+            curl -fsS --max-time 30 -o _site/data/zon.json "$VORIGE" \
+              || { echo "::warning::Geen vorig zon.json gevonden"; rm -f _site/data/zon.json; }
+            echo "publiceren=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "::error::KNMI-zondata mislukt; er wordt niets gepubliceerd"
+            exit 1
+          fi
+
+      - name: Artifact voor Pages
+        if: steps.zon.outputs.publiceren == 'true'
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: _site
+          include-hidden-files: true
+
+  publiceren:
+    needs: bouwen
+    if: needs.bouwen.outputs.publiceren == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - id: deploy
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
