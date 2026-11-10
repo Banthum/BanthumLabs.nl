@@ -4,7 +4,11 @@
 #   KNMI-data is. Bij een KNMI-fout wordt niets gepubliceerd; de vorige versie blijft.
 # - Push naar main: de site gaat altijd online. Faalt het KNMI, dan gaat het huidige
 #   zon.json opnieuw mee.
-# - Handmatig: publiceert ook als er geen nieuwe KNMI-data is; faalt bij een KNMI-fout.
+# - Handmatig of extern gestart (cron-job.org, elke 10 min): net als gepland. Vink
+#   "altijd" aan om ook zonder nieuwe KNMI-data te publiceren.
+#
+# GitHub start de planning hier maar een paar keer per dag; cron-job.org is daarom
+# de eigenlijke starter, de planning blijft als reserve.
 #
 # Pages-bron moet op "GitHub Actions" staan (Settings > Pages). Sleutel: secret KNMI_API_KEY.
 
@@ -16,6 +20,11 @@ on:
   schedule:
     - cron: "4,14,24,34,44,54 * * * *"
   workflow_dispatch:
+    inputs:
+      altijd:
+        description: "Ook publiceren als er geen nieuwe KNMI-data is"
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -57,6 +66,7 @@ jobs:
         env:
           KNMI_API_KEY: ${{ secrets.KNMI_API_KEY }}
           GEBEURTENIS: ${{ github.event_name }}
+          ALTIJD: ${{ inputs.altijd }}
           VORIGE: https://banthumlabs.nl/data/zon.json
         run: |
           set +e
@@ -66,11 +76,11 @@ jobs:
           if [ "$code" = 0 ]; then
             echo "publiceren=true" >> "$GITHUB_OUTPUT"
           elif [ "$code" = 3 ]; then
-            # Geen nieuwe data: gepland niets doen, anders gewoon publiceren.
-            if [ "$GEBEURTENIS" = schedule ]; then
-              echo "publiceren=false" >> "$GITHUB_OUTPUT"
-            else
+            # Geen nieuwe data: alleen publiceren bij een push of met "altijd".
+            if [ "$GEBEURTENIS" = push ] || [ "$ALTIJD" = true ]; then
               echo "publiceren=true" >> "$GITHUB_OUTPUT"
+            else
+              echo "publiceren=false" >> "$GITHUB_OUTPUT"
             fi
           elif [ "$GEBEURTENIS" = push ]; then
             echo "::warning::KNMI-zondata mislukt; site wordt gepubliceerd met het vorige zon.json"
