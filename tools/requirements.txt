@@ -3,3 +3,9 @@ numpy==2.5.4
 cftime==1.6.6.1
 certifi==2026.10.23
 packaging==26.3
+eccodes==2.50.0
+eccodeslib==2.50.0.34
+findlibs==0.1.5
+attrs==26.1.0
+cffi==2.1.1
+pycparser==3.12

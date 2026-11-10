@@ -10,6 +10,11 @@
 # GitHub start de planning hier maar een paar keer per dag; cron-job.org is daarom
 # de eigenlijke starter, de planning blijft als reserve.
 #
+# Proef (10-11-2026): ook data/zonverwachting.json (KNMI HARMONIE-verwachting) en
+# data/zonverwachting_status.json. Hoogstens om de 3 uur een nieuwe run (grote
+# download); anders gaat de vorige versie mee. Een fout daarin houdt zon.json
+# nooit tegen.
+#
 # Pages-bron moet op "GitHub Actions" staan (Settings > Pages). Sleutel: secret KNMI_API_KEY.
 
 name: Publiceer site
@@ -36,7 +41,7 @@ concurrency:
 jobs:
   bouwen:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 25
     outputs:
       publiceren: ${{ steps.zon.outputs.publiceren }}
     steps:
@@ -92,6 +97,20 @@ jobs:
             echo "::error::KNMI-zondata mislukt; er wordt niets gepubliceerd"
             exit 1
           fi
+
+      - name: Zonverwachting van het KNMI (proef)
+        continue-on-error: true
+        env:
+          KNMI_API_KEY: ${{ secrets.KNMI_API_KEY }}
+          VORIGE: https://banthumlabs.nl/data/zonverwachting.json
+        run: |
+          set +e
+          timeout 15m python tools/knmi_zonverwachting.py _site/data/zonverwachting.json             --vorige "$VORIGE" --status _site/data/zonverwachting_status.json
+          code=$?
+          if [ "$code" != 0 ] && [ "$code" != 3 ]; then
+            echo "::warning::Zonverwachting mislukt (code $code); vorige versie blijft staan"
+          fi
+          exit 0
 
       - name: Artifact voor Pages
         if: steps.zon.outputs.publiceren == 'true'
