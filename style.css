@@ -1,4 +1,4 @@
-/* Banthum Labs - zwarte stijl, zoals het dashboard van de BMSmachine */
+/* Banthum Labs - zwarte stijl, zoals het dashboard van de Batterijpiloot */
 
 @font-face {
   font-family: "Oswald";
@@ -118,6 +118,8 @@ img { max-width: 100%; height: auto; }
   width: min(320px, 70vw);
   opacity: 0.95;
 }
+/* breed logo (Batterijpiloot, met vleugels) */
+.held .beeld.breed { width: min(480px, 85vw); }
 
 .sectie {
   padding: 56px 0;
@@ -336,5 +338,6 @@ img { max-width: 100%; height: auto; }
   .twee { grid-template-columns: 1fr; }
   .stappen { grid-template-columns: 1fr; }
   .held .beeld { order: -1; width: 88px; justify-self: start; }
+  .held .beeld.breed { width: min(260px, 70vw); }
   .kop .binnen { flex-wrap: wrap; padding-top: 12px; padding-bottom: 12px; }
 }

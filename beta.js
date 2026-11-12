@@ -38,7 +38,7 @@ formulier.addEventListener("submit", async (e) => {
 
   if (!FORMULIER_ADRES) {
     const tekst =
-      "Ik heb interesse in de beta-test van de BMSmachine.\n\n" +
+      "Ik heb interesse in de beta-test van de Batterijpiloot.\n\n" +
       "E-mail: " + gegevens.email + "\n" +
       "Batterij: " + gegevens.batterij + "\n" +
       "HomeWizard P1-meter: " + gegevens.meter + "\n" +
@@ -47,7 +47,7 @@ formulier.addEventListener("submit", async (e) => {
       (gegevens.opmerking ? "Opmerking: " + gegevens.opmerking + "\n" : "");
     window.location.href =
       "mailto:" + MAILADRES +
-      "?subject=" + encodeURIComponent("Interesse beta-test BMSmachine") +
+      "?subject=" + encodeURIComponent("Interesse beta-test Batterijpiloot") +
       "&body=" + encodeURIComponent(tekst);
     toon("Je mailprogramma opent met een ingevulde mail. Verstuur die om je interesse door te geven. Opent er niets? Mail dan naar " + MAILADRES + ".");
     return;
