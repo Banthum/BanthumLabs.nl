@@ -41,7 +41,7 @@ formulier.addEventListener("submit", async (e) => {
       "Ik heb interesse in de beta-test van de Piekpiloot.\n\n" +
       "E-mail: " + gegevens.email + "\n" +
       "Batterij: " + gegevens.batterij + "\n" +
-      "HomeWizard P1-meter: " + gegevens.meter + "\n" +
+      "P1-meter: " + gegevens.meter + "\n" +
       "Dynamisch contract: " + gegevens.contract + "\n" +
       "Zonnepanelen: " + gegevens.zon + "\n" +
       (gegevens.opmerking ? "Opmerking: " + gegevens.opmerking + "\n" : "");

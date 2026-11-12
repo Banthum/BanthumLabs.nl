@@ -393,7 +393,7 @@ img { max-width: 100%; height: auto; }
   border-radius: 10px;
 }
 @media (max-width: 760px) {
-  .kaart.product { grid-template-columns: 1fr; gap: 16px; }
+  .kaart.product { grid-template-columns: minmax(0, 1fr); gap: 16px; }
 }
 
 /* productafbeelding: productpagina (midden) en homepage (naast tekst) */
@@ -413,5 +413,5 @@ img { max-width: 100%; height: auto; }
 }
 .uitgelicht h2 { margin-top: 0; }
 @media (max-width: 760px) {
-  .uitgelicht { grid-template-columns: 1fr; gap: 20px; }
+  .uitgelicht { grid-template-columns: minmax(0, 1fr); gap: 20px; }
 }
