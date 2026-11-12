@@ -378,3 +378,20 @@ img { max-width: 100%; height: auto; }
   font-size: 0.92rem;
   color: var(--tekst-zacht);
 }
+
+/* productkaart met foto (homepage) */
+.kaart.product {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 28px;
+  align-items: center;
+}
+.kaart.product img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+@media (max-width: 760px) {
+  .kaart.product { grid-template-columns: 1fr; gap: 16px; }
+}
