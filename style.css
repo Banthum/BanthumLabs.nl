@@ -341,3 +341,25 @@ img { max-width: 100%; height: auto; }
   .held .beeld.breed { width: min(260px, 70vw); }
   .kop .binnen { flex-wrap: wrap; padding-top: 12px; padding-bottom: 12px; }
 }
+
+/* schermafbeeldingen van het kastje (productpagina) */
+.schermen {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+.scherm { margin: 0; }
+.scherm img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--rand);
+  border-radius: 10px;
+}
+.scherm figcaption {
+  margin-top: 8px;
+  font-size: 0.92rem;
+  color: var(--tekst-zacht);
+}
+.scherm figcaption strong { color: var(--tekst); }
