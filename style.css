@@ -415,3 +415,71 @@ img { max-width: 100%; height: auto; }
 @media (max-width: 760px) {
   .uitgelicht { grid-template-columns: minmax(0, 1fr); gap: 20px; }
 }
+
+/* Plug & play: stekker erin, wifi kiezen, klaar */
+
+.plugplay {
+  background: linear-gradient(160deg, rgba(35,177,77,0.16), rgba(35,177,77,0.03) 60%);
+  border-top: 1px solid var(--groen);
+  border-bottom: 1px solid var(--groen);
+}
+.pp-kicker {
+  margin: 0 0 4px;
+  color: var(--groen-licht);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.pp-titel {
+  font-size: clamp(2rem, 5.5vw, 3.4rem);
+  margin: 0 0 12px;
+}
+.pp-intro {
+  font-size: 1.2rem;
+  color: var(--tekst-zacht);
+  max-width: 36em;
+  margin: 0 0 32px;
+}
+.pp-stappen {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+.pp-stappen li {
+  position: relative;
+  background: var(--bg-kaart);
+  border: 1px solid var(--rand);
+  border-radius: 14px;
+  padding: 24px;
+}
+.pp-stappen li:last-child { border-color: var(--groen); box-shadow: 0 0 0 1px var(--groen) inset; }
+.pp-nr {
+  position: absolute;
+  top: 18px;
+  right: 22px;
+  font-family: "Oswald", system-ui, sans-serif;
+  font-size: 2.6rem;
+  line-height: 1;
+  color: var(--rand);
+}
+.pp-icoon {
+  width: 52px;
+  height: 52px;
+  fill: none;
+  stroke: var(--groen-licht);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  margin-bottom: 10px;
+}
+.pp-icoon .vol { fill: var(--groen-licht); stroke: none; }
+.pp-stappen h3 { font-size: 1.6rem; margin: 0 0 6px; }
+.pp-stappen p { margin: 0; color: var(--tekst-zacht); }
+.pp-voet { margin: 20px 0 0; font-size: 0.9rem; color: var(--tekst-zacht); }
+@media (max-width: 760px) {
+  .pp-stappen { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  .pp-stappen li { padding: 20px; }
+}
