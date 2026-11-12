@@ -1,4 +1,4 @@
-/* Banthum Labs - zwarte stijl, zoals het dashboard van de Batterijpiloot */
+/* Banthum Labs - zwarte stijl, zoals het dashboard van de Piekpiloot */
 
 @font-face {
   font-family: "Oswald";
@@ -118,7 +118,7 @@ img { max-width: 100%; height: auto; }
   width: min(320px, 70vw);
   opacity: 0.95;
 }
-/* breed logo (Batterijpiloot, met vleugels) */
+/* breed logo (Piekpiloot, met vleugels) */
 .held .beeld.breed { width: min(480px, 85vw); }
 
 .sectie {
