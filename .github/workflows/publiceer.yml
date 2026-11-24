@@ -15,6 +15,10 @@
 # download); anders gaat de vorige versie mee. Een fout daarin houdt zon.json
 # nooit tegen.
 #
+# Proef (24-11-2026, schaduw): ook data/zonnowcast.json (KNMI satelliet-nowcast,
+# elk kwartier een run, ~30 MB) en data/zonnowcast_status.json. Is alleen de
+# nowcast nieuw, dan wordt ook gepubliceerd. Een fout daarin houdt zon.json nooit tegen.
+#
 # Pages-bron moet op "GitHub Actions" staan (Settings > Pages). Sleutel: secret KNMI_API_KEY.
 
 name: Publiceer site
@@ -43,7 +47,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 25
     outputs:
-      publiceren: ${{ steps.zon.outputs.publiceren }}
+      publiceren: ${{ steps.zon.outputs.publiceren == 'true' || steps.nowcast.outputs.nieuw == 'true' }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -112,8 +116,25 @@ jobs:
           fi
           exit 0
 
+      - name: Satelliet-nowcast van het KNMI (proef)
+        id: nowcast
+        continue-on-error: true
+        env:
+          KNMI_API_KEY: ${{ secrets.KNMI_API_KEY }}
+          VORIGE: https://banthumlabs.nl/data/zonnowcast.json
+        run: |
+          set +e
+          timeout 5m python tools/knmi_nowcast.py _site/data/zonnowcast.json             --vorige "$VORIGE" --status _site/data/zonnowcast_status.json
+          code=$?
+          if [ "$code" = 0 ]; then
+            echo "nieuw=true" >> "$GITHUB_OUTPUT"
+          elif [ "$code" != 3 ]; then
+            echo "::warning::Satelliet-nowcast mislukt (code $code); vorige versie blijft staan"
+          fi
+          exit 0
+
       - name: Artifact voor Pages
-        if: steps.zon.outputs.publiceren == 'true'
+        if: steps.zon.outputs.publiceren == 'true' || steps.nowcast.outputs.nieuw == 'true'
         uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
           path: _site
